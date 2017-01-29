@@ -13,7 +13,7 @@ const tracked = { };
 function cleanupSession(sessionId, sync, cb) {
 	if(!tracked[sessionId]) {
 		if(cb) {
-			cb(null, []);
+			cb( [] );
 		}
 		return;
 	}
@@ -24,7 +24,7 @@ function cleanupSession(sessionId, sync, cb) {
 
 	if(0 === list.length) {
 		if(cb) {
-			cb(null, [ ] );
+			cb( [ ] );
 		}
 		return;
 	}
@@ -36,14 +36,14 @@ function cleanupSession(sessionId, sync, cb) {
 	if(sync) {
 		const paths = del.sync(list, delOpts);
 		if(cb) {
-			cb(null, paths);
+			cb(paths);
 		}
 		return;
 	}
 
 	del(list, delOpts ).then( paths => {
 		if(cb) {
-			return cb(null, paths);
+			return cb(paths);
 		}
 	});
 }
@@ -126,6 +126,9 @@ module.exports = class temptmp {
 	cleanup(cb) {
 		cleanupSession(this.sessionId, false, paths => {
 			delete tracked[this.sessionId];
+			if(cb) {
+				return cb(paths);
+			}
 		});
 	}
 
