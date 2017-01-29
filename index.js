@@ -67,8 +67,8 @@ const TEMP_EPOC		= 1485709902194;
 
 module.exports = class temptmp {
 	constructor(sessionId, trackingEnabled) {
-		this.sessionId			= sessionId || 'internal_global_session';
-		this.trackingEnabled	= trackingEnabled || false;
+		this._sessionId			= sessionId || 'internal_global_session';
+		this._trackingEnabled	= trackingEnabled || false;
 	}
 
 	static createSession(sessionId, trackingEnabled) {
@@ -79,13 +79,15 @@ module.exports = class temptmp {
 		return new temptmp(sessionId, true);
 	}
 
+	get sessionIdentifier() { return this._sessionId; }
+
 	pauseTracking() {
-		this.trackingEnabled = false;
+		this._trackingEnabled = false;
 		return this;
 	}
 
 	resumeTracking() {
-		this.trackingEnabled = true;
+		this._trackingEnabled = true;
 		return this;
 	}
 
@@ -124,8 +126,8 @@ module.exports = class temptmp {
 	}
 
 	cleanup(cb) {
-		cleanupSession(this.sessionId, false, paths => {
-			delete tracked[this.sessionId];
+		cleanupSession(this._sessionId, false, paths => {
+			delete tracked[this._sessionId];
 			if(cb) {
 				return cb(paths);
 			}
@@ -144,13 +146,13 @@ module.exports = class temptmp {
 	}
 
 	_track(path, type) {
-		if(!this.trackingEnabled) {
+		if(!this._trackingEnabled) {
 			return;
 		}
 
-		tracked[this.sessionId] = tracked[this.sessionId] || {};
-		tracked[this.sessionId][type] = tracked[this.sessionId][type] || [];
-		tracked[this.sessionId][type].push(path);
+		tracked[this._sessionId] = tracked[this._sessionId] || {};
+		tracked[this._sessionId][type] = tracked[this._sessionId][type] || [];
+		tracked[this._sessionId][type].push(path);
 	}
 
 	_getRandomString(len) {
