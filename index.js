@@ -79,7 +79,7 @@ module.exports = class temptmp {
 		return new temptmp(sessionId, true);
 	}
 
-	get sessionIdentifier() { return this._sessionId; }
+	get sessionId() { return this._sessionId; }
 
 	pauseTracking() {
 		this._trackingEnabled = false;
