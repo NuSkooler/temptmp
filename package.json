@@ -1,0 +1,18 @@
+{
+  "name": "temptmp",
+  "version": "1.0.0",
+  "description": "Temp Files & Directories For Node (Again)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "temp",
+    "tmp"
+  ],
+  "dependencies" : {
+    "del" : "^2.2.2"
+  },
+  "author": "Bryan Ashby <bryan@l33t.codes>",
+  "license": "BSD-2-Clause"
+}
