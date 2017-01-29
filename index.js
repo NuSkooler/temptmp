@@ -11,6 +11,13 @@ const del			= require('del');
 const tracked = { };
 
 function cleanupSession(sessionId, sync, cb) {
+	if(!tracked[sessionId]) {
+		if(cb) {
+			cb(null, []);
+		}
+		return;
+	}
+	
 	const list = (tracked[sessionId].files || []).concat( (tracked[sessionId].dirs || [] ).map(d => {
 		return `${d}/**`;
 	}));
