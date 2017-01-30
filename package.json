@@ -14,5 +14,16 @@
     "del" : "^2.2.2"
   },
   "author": "Bryan Ashby <bryan@l33t.codes>",
-  "license": "BSD-2-Clause"
+  "license": "BSD-2-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NuSkooler/temptmp.git"
+  },
+  "homepage": "https://github.com/NuSkooler/temptmp",
+  "bugs" : {
+    "url": "https://github.com/NuSkooler/temptmp/issues"
+  },
+  "engines": {
+    "node" : ">=6.0"
+  }
 }
