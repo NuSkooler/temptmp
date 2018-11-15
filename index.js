@@ -48,14 +48,18 @@ function cleanupSession(sessionId, sync, cb) {
 	});
 }
 
+const globalCleanupAllSessions = () => {
+	Object.keys(tracked).forEach(sessionId => {
+		cleanupSession(sessionId, true, (paths) => { /* dummy */ } );
+	});
+}
+
 let cleanupAttached = false;
 if(!cleanupAttached) {
 	cleanupAttached = true;
 
 	process.once('exit', () => {
-		Object.keys(tracked).forEach(sessionId => {
-			cleanupSession(sessionId, true, () => { /* dummy */ } );
-		});
+		return globalCleanupAllSessions();
 	});
 }
 
@@ -77,6 +81,11 @@ module.exports = class temptmp {
 
 	static createTrackedSession(sessionId) {
 		return new temptmp(sessionId, true);
+	}
+
+	//	use with care!
+	static cleanupAllSessions() {
+		return globalCleanupAllSessions();
 	}
 
 	get sessionId() { return this._sessionId; }
